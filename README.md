@@ -19,7 +19,11 @@ Alfred workflow to calculate subnet mask.
 ```bash
 go get golang.org/x/vgo
 vgo build
+
+sh setup.sh
 ```
+
+`setup.sh` is created link to alfred workflow v3 directory.
 
 ### Licensing
 This library is released under the [MIT licence][licence].
