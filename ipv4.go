@@ -57,9 +57,13 @@ func (self *ipv4SubnetMask) calculate() error {
 func (self *ipv4SubnetMask) addNewItem() {
 	wf.NewItem(self.n.ip.String()).
 		Subtitle(`ip`).
+		Arg(self.n.ip.String()).
+		Valid(true).
 		Icon(&aw.Icon{Value: "./img/ip.png", Type: ""})
 	wf.NewItem(self.n.networkAddr.String() + " ~ " + self.n.broadcastAddr.String()).
 		Subtitle(`network range`).
+		Arg(self.n.networkAddr.String() + " ~ " + self.n.broadcastAddr.String()).
+		Valid(true).
 		Icon(&aw.Icon{Value: "./img/range.png", Type: ""})
 	addDefaultItem(self.n)
 }
@@ -85,8 +89,12 @@ func (self *ipv4BroadcastAddr) addNewItem() {
 func addDefaultItem(n *network) {
 	wf.NewItem(`/` + strconv.Itoa(n.prefix)).
 		Subtitle(`network prefix`).
+		Arg(`/` + strconv.Itoa(n.prefix)).
+		Valid(true).
 		Icon(&aw.Icon{Value: "./img/prefix.png", Type: ""})
 	wf.NewItem(n.subnetMask.String()).
 		Subtitle(`subnet mask`).
+		Arg(n.subnetMask.String()).
+		Valid(true).
 		Icon(&aw.Icon{Value: "./img/subnet_mask.png", Type: ""})
 }
