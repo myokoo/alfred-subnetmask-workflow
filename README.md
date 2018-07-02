@@ -16,6 +16,8 @@ Alfred workflow to calculate subnet mask.
 
 ### Setup
 
+#### go version >= 1.10.3
+
 ```bash
 go get golang.org/x/vgo
 vgo build
