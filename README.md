@@ -19,6 +19,7 @@ Alfred workflow to calculate subnet mask.
 #### go version >= 1.10.3
 
 ```bash
+git clone git@github.com:myokoo/alfred-subnetmask-workflow.git
 go get golang.org/x/vgo
 vgo build
 
