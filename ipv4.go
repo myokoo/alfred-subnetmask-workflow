@@ -76,7 +76,7 @@ func (self *ipv4BroadcastAddr) calculate() error {
 	mask := net.IPv4Mask(ip[0], ip[1], ip[2], ip[3])
 	self.n.prefix, _ = mask.Size()
 	self.n.subnetMask = ip
-	if self.n.prefix == 0 && !ip.Equal(net.ParseIP(`0.0.0.0`)) {
+	if self.n.prefix == 0 && !ip.Equal(net.IPv4zero) {
 		return errors.New("入力形式が不正です。")
 	}
 	return nil
