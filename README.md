@@ -3,14 +3,14 @@
 Alfred workflow to calculate subnet mask.
 
 #### subnetmask xxx.xxx.xxx.xxxx/xx
-![subnetmask](https://user-images.githubusercontent.com/1995330/42171666-d7fa375c-7e54-11e8-8feb-45159e8eb14f.png)
+![subnetmask](https://user-images.githubusercontent.com/1995330/48602926-1deb1500-e9b8-11e8-9e17-fd12e8f3aae4.gif)
 
 
 #### subnetmask xxx.xxx.xxx.xxx
-![broadcast](https://user-images.githubusercontent.com/1995330/42171661-d44db584-7e54-11e8-8454-30e457e6940b.png)
+![broadcast](https://user-images.githubusercontent.com/1995330/48602931-22173280-e9b8-11e8-9d5e-132837ffc902.gif)
 
 #### subnetmask /xx
-![prefix](https://user-images.githubusercontent.com/1995330/42171671-da4dce60-7e54-11e8-90de-484ad6ea468a.png)
+![prefix](https://user-images.githubusercontent.com/1995330/48602937-25aab980-e9b8-11e8-9359-cb7e917ac2c0.gif)
 
 
 
