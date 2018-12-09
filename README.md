@@ -3,25 +3,24 @@
 Alfred workflow to calculate subnet mask.
 
 #### subnetmask xxx.xxx.xxx.xxxx/xx
-![subnetmask](https://user-images.githubusercontent.com/1995330/48602926-1deb1500-e9b8-11e8-9e17-fd12e8f3aae4.gif)
+![subnetmask](https://user-images.githubusercontent.com/1995330/49699174-64c3d780-fc11-11e8-9c1f-0e447d5063cf.gif)
 
 
 #### subnetmask xxx.xxx.xxx.xxx
-![broadcast](https://user-images.githubusercontent.com/1995330/48602931-22173280-e9b8-11e8-9d5e-132837ffc902.gif)
+![broadcast](https://user-images.githubusercontent.com/1995330/49699178-69888b80-fc11-11e8-9cf5-56b16b9263c9.gif)
 
 #### subnetmask /xx
-![prefix](https://user-images.githubusercontent.com/1995330/48602937-25aab980-e9b8-11e8-9359-cb7e917ac2c0.gif)
+![prefix](https://user-images.githubusercontent.com/1995330/49699181-70af9980-fc11-11e8-931d-1f8d5a545e9c.gif)
 
 
 
 ### Setup
 
-#### go version >= 1.10.3
+#### go version >= 1.11.1
 
 ```bash
 git clone git@github.com:myokoo/alfred-subnetmask-workflow.git
-go get golang.org/x/vgo
-vgo build
+go build
 
 sh setup.sh
 ```

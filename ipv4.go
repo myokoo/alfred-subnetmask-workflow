@@ -1,8 +1,10 @@
 package main
 
 import (
+	"fmt"
 	"github.com/deanishe/awgo"
 	"github.com/pkg/errors"
+	"math"
 	"net"
 	"strconv"
 )
@@ -16,6 +18,8 @@ type ipv4SubnetMask struct {
 type ipv4BroadcastAddr struct {
 	n *network
 }
+
+const maxPrefix = 32
 
 func (self *ipv4Prefix) calculate() error {
 	var err error
@@ -97,4 +101,10 @@ func addDefaultItem(n *network) {
 		Arg(n.subnetMask.String()).
 		Valid(true).
 		Icon(&aw.Icon{Value: "./img/subnet_mask.png", Type: ""})
+	v := int(math.Exp2(float64(maxPrefix-n.prefix)))
+	wf.NewItem(fmt.Sprintf("%d", v)).
+		Subtitle(`ip count`).
+		Arg(fmt.Sprintf("%d", v)).
+		Valid(true).
+		Icon(&aw.Icon{Value: "./img/ip_count.png", Type: ""})
 }

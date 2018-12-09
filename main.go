@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/deanishe/awgo"
-	"github.com/docopt/docopt.go"
+	"github.com/docopt/docopt-go"
 	"net"
 	"os"
 	"strings"
