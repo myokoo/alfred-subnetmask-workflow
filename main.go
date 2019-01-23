@@ -21,6 +21,7 @@ type network struct {
 	subnetMask    net.IP
 	networkAddr   net.IP
 	broadcastAddr net.IP
+	wildcardMask  net.IP
 }
 
 var wf *aw.Workflow
