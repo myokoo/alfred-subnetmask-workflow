@@ -20,6 +20,7 @@ type ipv4BroadcastAddr struct {
 }
 
 const maxPrefix = 32
+const ipSliceLen = 4
 
 func (self *ipv4Prefix) calculate() error {
 	var err error
@@ -30,6 +31,11 @@ func (self *ipv4Prefix) calculate() error {
 
 	mask := net.CIDRMask(self.n.prefix, 32)
 	self.n.subnetMask = net.IPv4bcast.Mask(mask)
+
+	self.n.wildcardMask = make([]byte, ipSliceLen)
+	for i, v := range mask {
+		self.n.wildcardMask[i] = v ^ 255
+	}
 	return nil
 }
 
@@ -50,10 +56,16 @@ func (self *ipv4SubnetMask) calculate() error {
 	self.n.subnetMask = net.IPv4bcast.Mask(ipv4Net.Mask)
 	self.n.prefix, _ = ipv4Net.Mask.Size()
 
-	self.n.broadcastAddr = make([]byte, len(self.n.ip.To4()))
+	self.n.broadcastAddr = make([]byte, ipSliceLen)
 	copy(self.n.broadcastAddr, self.n.ip.To4())
 	for i, v := range ipv4Net.Mask {
 		self.n.broadcastAddr[i] |= v ^ 255
+	}
+
+	self.n.wildcardMask = make([]byte, ipSliceLen)
+	for i, v := range ipv4Net.Mask {
+		self.n.wildcardMask[i] = v ^ 255
+
 	}
 	return nil
 }
@@ -83,6 +95,11 @@ func (self *ipv4BroadcastAddr) calculate() error {
 	if self.n.prefix == 0 && !ip.Equal(net.IPv4zero) {
 		return errors.New("入力形式が不正です。")
 	}
+
+	self.n.wildcardMask = make([]byte, ipSliceLen)
+	for i, v := range mask {
+		self.n.wildcardMask[i] = v ^ 255
+	}
 	return nil
 }
 
@@ -101,6 +118,11 @@ func addDefaultItem(n *network) {
 		Arg(n.subnetMask.String()).
 		Valid(true).
 		Icon(&aw.Icon{Value: "./img/subnet_mask.png", Type: ""})
+	wf.NewItem(n.wildcardMask.String()).
+		Subtitle(`wildcard mask`).
+		Arg(n.wildcardMask.String()).
+		Valid(true).
+		Icon(&aw.Icon{Value: "./img/wildcard_mask.png", Type: ""})
 	v := int(math.Exp2(float64(maxPrefix-n.prefix)))
 	wf.NewItem(fmt.Sprintf("%d", v)).
 		Subtitle(`ip count`).
