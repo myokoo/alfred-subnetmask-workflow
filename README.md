@@ -20,7 +20,7 @@ Alfred workflow to calculate subnet mask.
 
 ```bash
 git clone git@github.com:myokoo/alfred-subnetmask-workflow.git
-go build
+GO111MODULE=on go build
 
 sh setup.sh
 ```
