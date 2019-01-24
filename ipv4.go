@@ -33,8 +33,11 @@ func (self *ipv4Prefix) calculate() error {
 	if err != nil {
 		return err
 	}
+	if self.n.prefix > maxPrefix {
+		return errors.New("入力形式が不正です。")
+	}
 
-	mask := net.CIDRMask(self.n.prefix, 32)
+	mask := net.CIDRMask(self.n.prefix, maxPrefix)
 	self.n.subnetMask = net.IPv4bcast.Mask(mask)
 
 	buildWildCardMask(self.n, mask)
