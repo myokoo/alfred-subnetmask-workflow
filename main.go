@@ -63,7 +63,7 @@ func (n *network) applyProcessType() {
 		// ex: /24
 		n.qType = &ipv4Prefix{n}
 	} else if strings.Contains(n.query, `/`) {
-		// ex: 192.168.24.11/24
+		// ex: 192.168.24.11/24 or 192.168.24.11/255.255.255.0
 		n.qType = &ipv4Network{n}
 	} else {
 		// ex: 255.255.255.0
