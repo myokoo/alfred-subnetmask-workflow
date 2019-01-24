@@ -32,7 +32,7 @@ func (self *ipv4Prefix) calculate() error {
 	mask := net.CIDRMask(self.n.prefix, 32)
 	self.n.subnetMask = net.IPv4bcast.Mask(mask)
 
-	setWildCardMask(self.n, mask)
+	buildWildCardMask(self.n, mask)
 	return nil
 }
 
@@ -59,7 +59,7 @@ func (self *ipv4SubnetMask) calculate() error {
 		self.n.broadcastAddr[i] |= v ^ 255
 	}
 
-	setWildCardMask(self.n, ipv4Net.Mask)
+	buildWildCardMask(self.n, ipv4Net.Mask)
 	return nil
 }
 
@@ -89,7 +89,7 @@ func (self *ipv4BroadcastAddr) calculate() error {
 		return errors.New("入力形式が不正です。")
 	}
 
-	setWildCardMask(self.n, mask)
+	buildWildCardMask(self.n, mask)
 	return nil
 }
 
@@ -121,7 +121,7 @@ func addDefaultItem(n *network) {
 		Icon(&aw.Icon{Value: "./img/ip_count.png", Type: ""})
 }
 
-func setWildCardMask(n *network, mask net.IPMask) {
+func buildWildCardMask(n *network, mask net.IPMask) {
 	n.wildcardMask = make([]byte, ipSliceLen)
 	for i, v := range mask {
 		n.wildcardMask[i] = v ^ 255
