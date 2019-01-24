@@ -9,13 +9,18 @@ import (
 	"strconv"
 )
 
+// struct for /22
 type ipv4Prefix struct {
 	n *network
 }
-type ipv4SubnetMask struct {
+
+// struct for 192.168.33.12/21
+type ipv4Network struct {
 	n *network
 }
-type ipv4BroadcastAddr struct {
+
+// struct for 255.255.252.0
+type ipv4SubnetMask struct {
 	n *network
 }
 
@@ -40,7 +45,7 @@ func (self *ipv4Prefix) addNewItem() {
 	addDefaultItem(self.n)
 }
 
-func (self *ipv4SubnetMask) calculate() error {
+func (self *ipv4Network) calculate() error {
 	var err error
 	var ipv4Net *net.IPNet
 
@@ -63,7 +68,7 @@ func (self *ipv4SubnetMask) calculate() error {
 	return nil
 }
 
-func (self *ipv4SubnetMask) addNewItem() {
+func (self *ipv4Network) addNewItem() {
 	wf.NewItem(self.n.ip.String()).
 		Subtitle(`ip`).
 		Arg(self.n.ip.String()).
@@ -77,7 +82,7 @@ func (self *ipv4SubnetMask) addNewItem() {
 	addDefaultItem(self.n)
 }
 
-func (self *ipv4BroadcastAddr) calculate() error {
+func (self *ipv4SubnetMask) calculate() error {
 	ip := net.ParseIP(self.n.query).To4()
 	if ip == nil {
 		return errors.New("入力形式が不正です。")
@@ -93,7 +98,7 @@ func (self *ipv4BroadcastAddr) calculate() error {
 	return nil
 }
 
-func (self *ipv4BroadcastAddr) addNewItem() {
+func (self *ipv4SubnetMask) addNewItem() {
 	addDefaultItem(self.n)
 }
 

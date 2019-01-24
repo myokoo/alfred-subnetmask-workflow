@@ -64,9 +64,9 @@ func (n *network) applyProcessType() {
 		n.qType = &ipv4Prefix{n}
 	} else if strings.Contains(n.query, `/`) {
 		// ex: 192.168.24.11/24
-		n.qType = &ipv4SubnetMask{n}
+		n.qType = &ipv4Network{n}
 	} else {
 		// ex: 255.255.255.0
-		n.qType = &ipv4BroadcastAddr{n}
+		n.qType = &ipv4SubnetMask{n}
 	}
 }
