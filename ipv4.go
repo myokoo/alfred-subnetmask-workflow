@@ -86,19 +86,7 @@ func (self *ipv4Network) addNewItem() {
 }
 
 func (self *ipv4SubnetMask) calculate() error {
-	ip := net.ParseIP(self.n.query).To4()
-	if ip == nil {
-		return errors.New("入力形式が不正です。")
-	}
-	mask := net.IPv4Mask(ip[0], ip[1], ip[2], ip[3])
-	self.n.prefix, _ = mask.Size()
-	self.n.subnetMask = ip
-	if self.n.prefix == 0 && !ip.Equal(net.IPv4zero) {
-		return errors.New("入力形式が不正です。")
-	}
-
-	buildWildCardMask(self.n, mask)
-	return nil
+	return calculateFromSubnetMask(self.n, self.n.query)
 }
 
 func (self *ipv4SubnetMask) addNewItem() {
@@ -134,4 +122,18 @@ func buildWildCardMask(n *network, mask net.IPMask) {
 	for i, v := range mask {
 		n.wildcardMask[i] = v ^ 255
 	}
+}
+
+func calculateFromSubnetMask(n *network, b string) error {
+	n.subnetMask = net.ParseIP(b).To4()
+	if n.subnetMask == nil {
+		return errors.New("入力形式が不正です。")
+	}
+	ipMask := net.IPv4Mask(n.subnetMask[0], n.subnetMask[1], n.subnetMask[2], n.subnetMask[3])
+	n.prefix, _ = ipMask.Size()
+	if n.prefix == 0 && !n.subnetMask.Equal(net.IPv4zero) {
+		return errors.New("入力形式が不正です。")
+	}
+	buildWildCardMask(n, ipMask)
+	return nil
 }
