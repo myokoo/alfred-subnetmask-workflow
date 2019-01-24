@@ -118,7 +118,7 @@ func addDefaultItem(n *network) {
 		Arg(n.wildcardMask.String()).
 		Valid(true).
 		Icon(&aw.Icon{Value: "./img/wildcard_mask.png", Type: ""})
-	v := int(math.Exp2(float64(maxPrefix-n.prefix)))
+	v := int(math.Exp2(float64(maxPrefix - n.prefix)))
 	wf.NewItem(fmt.Sprintf("%d", v)).
 		Subtitle(`ip count`).
 		Arg(fmt.Sprintf("%d", v)).
