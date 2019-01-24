@@ -7,6 +7,7 @@ import (
 	"math"
 	"net"
 	"strconv"
+	"strings"
 )
 
 // struct for /22
@@ -14,7 +15,7 @@ type ipv4Prefix struct {
 	n *network
 }
 
-// struct for 192.168.33.12/21
+// struct for 192.168.33.12/21 or 192.146.11.22/255.255.255.0
 type ipv4Network struct {
 	n *network
 }
@@ -52,7 +53,19 @@ func (self *ipv4Network) calculate() error {
 	var err error
 	var ipv4Net *net.IPNet
 
-	self.n.ip, ipv4Net, err = net.ParseCIDR(self.n.query)
+	cidr := self.n.query
+	t := strings.Split(self.n.query, "/")
+	if strings.Contains(t[1], ".") {
+		subnetMask := net.ParseIP(t[1]).To4()
+		ipMask := net.IPMask(subnetMask)
+		prefix, b := ipMask.Size()
+		if prefix == 0 && b == 0 {
+			return errors.New("入力形式が不正です。")
+		}
+		cidr = t[0] + "/" + strconv.Itoa(prefix)
+	}
+
+	self.n.ip, ipv4Net, err = net.ParseCIDR(cidr)
 	if err != nil {
 		return err
 	}
