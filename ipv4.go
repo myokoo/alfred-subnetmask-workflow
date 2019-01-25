@@ -16,7 +16,7 @@ type ipv4Prefix struct {
 }
 
 // struct for 192.168.33.12/21 or 192.146.11.22/255.255.255.0
-type ipv4Network struct {
+type ipv4CIDR struct {
 	n *network
 }
 
@@ -49,7 +49,7 @@ func (self *ipv4Prefix) addNewItem() {
 	addDefaultItem(self.n)
 }
 
-func (self *ipv4Network) calculate() error {
+func (self *ipv4CIDR) calculate() error {
 	var err error
 	var ipv4Net *net.IPNet
 
@@ -71,7 +71,7 @@ func (self *ipv4Network) calculate() error {
 	}
 
 	self.n.networkAddr = ipv4Net.IP
-	self.n.subnetMask = net.IPv4bcast.Mask(ipv4Net.Mask)
+	self.n.subnetMask = net.IP(ipv4Net.Mask)
 	self.n.prefix, _ = ipv4Net.Mask.Size()
 
 	self.n.broadcastAddr = make([]byte, ipSliceLen)
@@ -84,7 +84,7 @@ func (self *ipv4Network) calculate() error {
 	return nil
 }
 
-func (self *ipv4Network) addNewItem() {
+func (self *ipv4CIDR) addNewItem() {
 	wf.NewItem(self.n.ip.String()).
 		Subtitle(`ip`).
 		Arg(self.n.ip.String()).
