@@ -3,7 +3,7 @@
 Alfred workflow to calculate subnet mask.
 
 #### subnetmask xxx.xxx.xxx.xxxx/xx or subnetmask xxx.xxx.xxx.xxx/xxx.xxx.xxx.xxx 
-ex1) subnetmask 192.168.111.33/24 
+ex1) subnetmask 192.168.111.33/24
 ex2) subnetmask 192.185.111.33/255.255.255.0 
 
 ![subnetmask](https://user-images.githubusercontent.com/1995330/51617935-9a7a1100-1f70-11e9-905c-3907a05564fc.gif)

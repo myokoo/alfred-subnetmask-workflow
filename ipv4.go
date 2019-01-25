@@ -38,10 +38,10 @@ func (self *ipv4Prefix) calculate() error {
 		return errors.New("入力形式が不正です。")
 	}
 
-	mask := net.CIDRMask(self.n.prefix, maxPrefix)
-	self.n.subnetMask = net.IPv4bcast.Mask(mask)
+	subnetMask := net.CIDRMask(self.n.prefix, maxPrefix)
+	self.n.subnetMask = net.IP(subnetMask)
 
-	buildWildCardMask(self.n, mask)
+	buildWildCardMask(self.n, subnetMask)
 	return nil
 }
 
@@ -133,6 +133,7 @@ func addDefaultItem(n *network) {
 		Arg(n.wildcardMask.String()).
 		Valid(true).
 		Icon(&aw.Icon{Value: "./img/wildcard_mask.png", Type: ""})
+
 	v := int(math.Exp2(float64(maxPrefix - n.prefix)))
 	wf.NewItem(fmt.Sprintf("%d", v)).
 		Subtitle(`ip count`).
